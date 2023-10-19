@@ -1,11 +1,21 @@
-import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import { Sidebar, Menu, MenuItem} from 'react-pro-sidebar';
 import { Link } from 'react-router-dom';
 import {sidebarClasses, menuClasses} from 'react-pro-sidebar'
 import { Typography, Container } from '@mui/material';
-import logo from '../images/logo.jpg'
-// import React from 'react'
+import tickets from '../images/tickets.png'
+import overview from '../images/overview.png'
+import subscription from '../images/subscription.png'
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import {useState} from 'react'
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import GroupsIcon from '@mui/icons-material/Groups';
+import PersonIcon from '@mui/icons-material/Person';
+import ArticleIcon from '@mui/icons-material/Article';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 function SidebarComponents() {
+    const [collapse, setCollapse] = useState(true)
+
   return (
     <>
         <Sidebar
@@ -15,10 +25,13 @@ function SidebarComponents() {
                     color: 'gray'
                 },
             }}
-            className='h-[200vh] '
-            width='320px'
+            className='h-[200vh] fixed'
+            width='280px'
             toggled = {true}
-            collapsed = {true}
+            collapsed = {collapse}
+            collapsedWidth='120px'
+            breakPoint='md'
+            
         >
             <Menu
                 
@@ -38,13 +51,21 @@ function SidebarComponents() {
                             className='text-lg text-white absolute top-[-0.2rem] left-2' 
                             variant='h3'>D</Typography>                     
                         </div>
-                        <Typography className='text-sm pt-3' variant='h5'>DashBoard Kit</Typography>
+                        <Typography 
+                        className='text-sm pt-3' variant='h5'>
+                            {collapse ? null : 'DashBoard Kit'}
+                        </Typography>
                     </div>
                 </Container>
 
-                
+            
+                <Container className='text-gray cursor-pointer hover:text-[#b6c8d9]'>
+                    <MenuOpenIcon className='mb-10 ml-6' onClick = {() => setCollapse(!collapse)}/>
+                </Container>  
+                        
+            </Menu>
 
-            </Menu>
+            
             <Menu
                 menuItemStyles={{
                 button: {
@@ -57,14 +78,61 @@ function SidebarComponents() {
                 },
                 }}
             >
-                <SubMenu label="Charts">
-                    <MenuItem> Pie charts </MenuItem>
-                    <MenuItem> Line charts </MenuItem>
-                </SubMenu>
-                <MenuItem component={<Link to="/home" />}> Documentation</MenuItem>
-                <MenuItem component={<Link to="/home" />}> Calendar</MenuItem>
-                <MenuItem component={<Link to="/home" />}> E-commerce</MenuItem>
+                <MenuItem component={<Link to="/home" />}>
+                    <Container>
+                        <div className='flex flex-row space-x-4'>
+                            <img src={overview} alt='' className='object-contain'/>
+                            <Typography variant='h6'>{collapse ? null : 'Overview'}</Typography>
+                        </div>
+                    </Container>
+                    
+                </MenuItem>
+                <MenuItem component={<Link to="/home" />}>
+                    <Container>
+                        <div className='flex flex-row space-x-4'>
+                            <img src={tickets} alt='' className='object-contain'/>
+                            <Typography variant='h6' className='text-lg'>{collapse ? null : 'Tickets'}</Typography>
+                        </div>    
+                    </Container> 
+                </MenuItem>
+                <MenuItem component={<Link to="/home" />}>
+                    <Container>
+                        <div className='flex flex-row space-x-4'>
+                            <LightbulbIcon/>
+                            <Typography variant='h6' className='text-lg'>
+                                {collapse ? null : 'Ideas'}</Typography>
+                        </div>    
+                    </Container> 
+                </MenuItem>
+                <MenuItem component={<Link to="/home" />}>
+                    <Container>
+                        <div className='flex flex-row space-x-4'>
+                            <GroupsIcon/>
+                            <Typography variant='h6' className='text-lg'>
+                                {collapse ? null : 'Contacts'}</Typography>
+                        </div>    
+                    </Container> 
+                </MenuItem>
+                <MenuItem component={<Link to="/home" />}>
+                    <Container>
+                        <div className='flex flex-row space-x-4'>
+                            <PersonIcon/>
+                            <Typography variant='h6' className='text-lg'>
+                                {collapse ? null : 'Agents'}</Typography>
+                        </div>    
+                    </Container> 
+                </MenuItem>
+                <MenuItem component={<Link to="/home" />}>
+                    <Container>
+                        <div className='flex flex-row space-x-4'>
+                            <ArticleIcon/>
+                            <Typography variant='h6' className='text-lg'>
+                                {collapse ? null : 'Article'}</Typography>
+                        </div>    
+                    </Container> 
+                </MenuItem>
             </Menu>
+            
             <Menu
                 menuItemStyles={{
                 button: {
@@ -76,15 +144,29 @@ function SidebarComponents() {
                     },
                 },
                 }}
+                className='mt-[5rem]'
             >
-                <SubMenu label="Charts">
-                    <MenuItem> Pie charts </MenuItem>
-                    <MenuItem> Line charts </MenuItem>
-                </SubMenu>
-                <MenuItem component={<Link to="/home" />}> Documentation</MenuItem>
-                <MenuItem component={<Link to="/home" />}> Calendar</MenuItem>
-                <MenuItem component={<Link to="/home" />}> E-commerce</MenuItem>
+                <MenuItem component={<Link to="/home" />}>
+                     <Container>
+                        <div className='flex flex-row space-x-4'>
+                            <SettingsIcon/>
+                            <Typography variant='h6' className='text-lg'>
+                                {collapse ? null : 'Settings'}</Typography>
+                        </div>    
+                    </Container>
+                </MenuItem>
+
+                <MenuItem component={<Link to="/home" />}>                    
+                    <Container>
+                        <div className='flex flex-row space-x-4'>
+                            <img src={subscription} alt='' className='object-contain'/>
+                            <Typography variant='h6' className='text-lg'>{collapse ? null : 'Subscription'}</Typography>
+                        </div>    
+                    </Container> 
+                </MenuItem>
+             
             </Menu>
+        
         </Sidebar>;
         <h1 className='text-white'>Hello</h1>
     </>
